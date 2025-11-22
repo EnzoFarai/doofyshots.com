@@ -13,7 +13,9 @@
     <header class="header">
         <div class="nav-container">
             <div class="logo">
-                <img src="assets/DoofyShots.jpg" alt="Doofy Shots" class="logo-img">
+                <a href="index.html">
+                    <img src="assets/DoofyShots.jpg" alt="Doofy Shots" class="logo-img">
+                </a>
             </div>
             <nav class="nav">
                 <a href="index.html" class="active">HOME</a>
@@ -44,7 +46,7 @@
     
     <!-- Book Now Button -->
     <div class="book-now-section">
-        <a href="https://wa.me/27692167121" class="book-now-btn" target="_blank">Book Now</a>
+        <a href="#" class="book-now-btn" id="main-book-now">Book Now</a>
     </div>
     
     <!-- 3D Carousel Section -->
@@ -126,7 +128,7 @@
                             <p class="inside-page__text">
                                 Capture your personality with professional portrait sessions.
                             </p>
-                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking a Portrait session." class="inside-page__btn inside-page__btn--portrait" target="_blank">Book Now</a>
+                            <a href="#" class="inside-page__btn inside-page__btn--portrait book-now-modal-btn" data-session="Portrait">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -165,7 +167,7 @@
                             <p class="inside-page__text">
                                 Make your matric dance unforgettable with professional photography.
                             </p>
-                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking a Matric Dance session." class="inside-page__btn inside-page__btn--matric" target="_blank">Book Now</a>
+                            <a href="#" class="inside-page__btn inside-page__btn--matric book-now-modal-btn" data-session="Matric Dance">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -204,7 +206,7 @@
                             <p class="inside-page__text">
                                 Capture the energy and emotion of your special occasions.
                             </p>
-                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking an Events session." class="inside-page__btn inside-page__btn--events" target="_blank">Book Now</a>
+                            <a href="#" class="inside-page__btn inside-page__btn--events book-now-modal-btn" data-session="Events">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -229,9 +231,8 @@
                                 </div>
                             </div>
                             <div class="card-back">
-                                <video class="video__container" autoplay muted loop>
-                                    <source class="video__media" src="assets/Video1.mp4" type="video/mp4">
-                                </video>
+                                <!-- Video removed as requested -->
+                                <div class="card-back-placeholder"></div>
                             </div>
                         </div>
                     </div>
@@ -243,13 +244,82 @@
                             <p class="inside-page__text">
                                 Create a custom package that fits your vision.
                             </p>
-                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking a Custom session." class="inside-page__btn inside-page__btn--custom" target="_blank">Book Now</a>
+                            <a href="#" class="inside-page__btn inside-page__btn--custom book-now-modal-btn" data-session="Custom">Book Now</a>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
     </section>
+    
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Book Your Session</h2>
+            <form id="booking-form">
+                <div class="form-section">
+                    <h3>Client Details</h3>
+                    <div class="form-group">
+                        <input type="text" id="client-name" name="client-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="client-email" name="client-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="client-phone" name="client-phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="client-location" name="client-location" placeholder="Location" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Session Information</h3>
+                    <div class="form-group">
+                        <select id="session-type" name="session-type" required>
+                            <option value="">Select Session Type</option>
+                            <option value="Portrait">Portrait</option>
+                            <option value="Matric Dance">Matric Dance</option>
+                            <option value="Events">Events</option>
+                            <option value="Custom">Custom</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date-type">Date Type:</label>
+                        <select id="date-type" name="date-type" required>
+                            <option value="single">Single Day</option>
+                            <option value="period">Period (Multiple Days)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="single-date-group">
+                        <input type="date" id="session-date" name="session-date" min="">
+                    </div>
+                    
+                    <div class="form-group hidden" id="period-date-group">
+                        <input type="date" id="start-date" name="start-date" min="" placeholder="Start Date">
+                        <input type="date" id="end-date" name="end-date" min="" placeholder="End Date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="time" id="start-time" name="start-time" min="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="number" id="number-people" name="number-people" placeholder="Number of People" min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="comments" name="comments" placeholder="Comments/Special Wishes" rows="4"></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Booking Request</button>
+            </form>
+        </div>
+    </div>
     
     <!-- Footer -->
     <footer class="footer" id="contact">

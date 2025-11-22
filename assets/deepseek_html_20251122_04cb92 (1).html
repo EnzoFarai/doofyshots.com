@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doofy Shots - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 36px;
+        }
+        
+        .nav a {
+            color: #000;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.2s;
+            padding-bottom: 5px;
+        }
+        
+        .nav a.active, .nav a:hover {
+            border-bottom: 3px solid #000;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #000;
+        }
+        
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 60px;
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .intro {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .intro h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+            color: #000;
+            font-family: 'Lobster', cursive;
+        }
+        
+        .intro h2 {
+            font-size: 46px;
+            font-weight: 800;
+            margin: 0;
+            margin-bottom: 24px;
+            line-height: 1.25;
+            color: #000;
+            font-family: 'Lobster', cursive;
+        }
+        
+        /* Role Text Styles - White with orange outline */
+        .neon-container {
+            text-align: left;
+            padding: 0;
+            margin-top: 14px;
+        }
+        
+        .neon-line {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 1rem 0;
+            position: relative;
+            opacity: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.5;
+            color: white;
+            text-shadow: 
+                0 0 1px #ff8c00,
+                0 0 2px #ff8c00,
+                0 0 3px #ff8c00,
+                0 0 4px #ff8c00,
+                0 0 5px #ff8c00;
+            animation: fadeIn 0.3s forwards;
+        }
+        
+        .line1 {
+            animation-delay: 0.3s;
+        }
+        
+        .line2 {
+            animation-delay: 1s;
+        }
+        
+        .line3 {
+            animation-delay: 1.7s;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .photo-frame {
+            position: relative;
+            width: 340px;
+            height: 380px;
+            background: #fff;
+            box-sizing: border-box;
+            box-shadow: none;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        
+        .photo-frame img {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            border: 2px solid #222;
+        }
+        
+        .frame-border {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            border: 1.5px solid #000;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+        
+        /* Book Now Button */
+        .book-now-section {
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .book-now-btn {
+            display: inline-block;
+            background-color: #ff8c00;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .book-now-btn:hover {
+            background-color: #e67e00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+        }
+        
+        /* 3D Carousel Section - Increased height and padding */
+        .carousel-section {
+            margin: 150px 0;
+            padding: 150px 0;
+            background: #ff8c00;
+            position: relative;
+            overflow: hidden;
+            min-height: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            touch-action: none;
+        }
+        
+        /* 3D Carousel Styles - Exact copy from working example */
+        #drag-container, #spin-container {
+            position: relative;
+            display: flex;
+            margin: auto;
+            transform-style: preserve-3d;
+            transform: rotateX(-10deg);
+        }
+
+        #drag-container img, #drag-container video {
+            transform-style: preserve-3d;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 200px;
+            font-size: 50px;
+            text-align: center;
+            box-shadow: 0 0 8px #fff;
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+            border-radius: 5px;
+        }
+
+        #drag-container img:hover, #drag-container video:hover {
+            box-shadow: 0 0 15px #fffd;
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0007);
+        }
+
+        #drag-container p {
+            font-family: 'Lobster', cursive;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%,-50%) rotateX(90deg);
+            color: #fff;
+            font-size: 36px;
+            text-shadow: 0 0 5px #000;
+            letter-spacing: 1px;
+        }
+
+        #ground {
+            width: 900px;
+            height: 900px;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%,-50%) rotateX(90deg);
+            background: radial-gradient(center center, farthest-side , rgba(255,255,255,0.2), transparent);
+        }
+
+        @keyframes spin {
+            from{
+                transform: rotateY(0deg);
+            } to{
+                transform: rotateY(360deg);
+            }
+        }
+
+        @keyframes spinRevert {
+            from{
+                transform: rotateY(360deg);
+            } to{
+                transform: rotateY(0deg);
+            }
+        }
+        
+        /* About Section */
+        .about-section {
+            margin: 80px 0 40px 0;
+            padding: 40px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .about-section h3 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: #333;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #555;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Photography Services Cards */
+        .services-section {
+            margin: 80px 0;
+            padding: 60px 0;
+            background: linear-gradient(to bottom right, #ff8c42, #ff6b1a);
+        }
+        
+        .services-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .card-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Smaller card sizes */
+        .card-section {
+            width: 160px;
+            height: 200px;
+        }
+        
+        .card {
+            background-color: rgba(0,0,0, .05);
+            box-shadow: -.1rem 1.7rem 6.6rem -3.2rem rgba(0,0,0,0.5);
+            height: 100%;
+            position: relative;
+            transition: all 1s ease;
+            width: 100%;
+        }
+        
+        .flip-card {
+            height: 100%;
+            perspective: 100rem;
+            position: absolute;
+            right: 0;
+            transition: all 1s ease;
+            visibility: hidden;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .flip-card > * {
+            visibility: visible;
+        }
+        
+        .flip-card__container {
+            height: 100%;
+            position: absolute;
+            right: 0;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: all 1s ease;
+            width: 100%;
+        }
+        
+        .card-front,
+        .card-back {
+            backface-visibility: hidden;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+        
+        .card-front {
+            background-color: #fafbfa;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .card-front__tp {
+            align-items: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 57% 90%, 50% 100%, 43% 90%, 0 90%);
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+            justify-content: center;
+            padding: .5rem;
+        }
+        
+        .card-front__tp--portrait {
+            background: linear-gradient(
+                to bottom,
+                #ff73b9,
+                #ff40a1
+            );
+        }
+        
+        .card-front__tp--matric {
+            background: linear-gradient(
+                to bottom,
+                #47c2d7,
+                #279eb2
+            );
+        }
+        
+        .card-front__tp--events {
+            background: linear-gradient(
+                to bottom,
+                #fb9b88,
+                #f86647
+            );
+        }
+        
+        .card-front__tp--custom {
+            background: linear-gradient(
+                to bottom,
+                #00db93,
+                #00b97d
+            );
+        }
+        
+        .card-front__bt {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 20%;
+        }
+        
+        .card-back {
+            background-color: #fafbfa;
+            transform: rotateY(180deg);
+        }
+        
+        .video__container {
+            clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%);
+            height: auto;
+            min-height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .inside-page {
+            background-color: #fafbfa;
+            box-shadow: inset 20rem 0px 5rem -2.5rem rgba(0,0,0,0.25);
+            height: 100%;
+            padding: 0.8rem;
+            position: absolute;
+            right: 0;
+            transition: all 1s ease;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .inside-page__container {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-align: left; 
+            width: 100%;
+        }
+        
+        .inside-page__heading {
+            padding-bottom: 0.5rem; 
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 800;
+            margin-top: .1rem;
+        }
+        
+        .inside-page__heading--portrait { color: #ff62b2; }
+        .inside-page__heading--matric { color: #2aaac1; }
+        .inside-page__heading--events { color: #fa7f67; }
+        .inside-page__heading--custom { color: #00b97c; }
+        
+        .inside-page__text {
+            color: #333;
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font-size: 0.7rem;
+            line-height: 1.2;
+        }
+        
+        .card-front__icon {
+            color: #fafbfa;
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .card-front__heading {
+            font-size: 1.1rem;
+            margin-top: .1rem;
+            color: #fafbfa;
+        }
+        
+        .card-front__text-view {
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-top: .1rem;
+        }
+        
+        .card-front__text-view--portrait { color: #ff62b2; }
+        .card-front__text-view--matric { color: #2aaac1; }
+        .card-front__text-view--events { color: #fa7f67; }
+        .card-front__text-view--custom { color: #00b97c; }
+        
+        .inside-page__btn {
+            background-color: transparent;
+            border: 2px solid;
+            border-radius: .3rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: auto;
+            overflow: hidden;
+            padding: .4rem .5rem;
+            position: relative;
+            text-decoration: none;
+            transition: all .3s ease;
+            width: 90%;
+            z-index: 10;
+            text-align: center;
+            display: block;
+        }
+        
+        .inside-page__btn::before { 
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            transform: scaleY(0);
+            transition: all .3s ease;
+            width: 100%;
+            z-index: -1;
+        }
+        
+        .inside-page__btn--portrait { 
+            border-color: #ff40a1;
+            color: #ff40a1;
+        }
+        
+        .inside-page__btn--portrait::before { 
+            background-color: #ff40a1;
+        }
+        
+        .inside-page__btn--matric { 
+            border-color: #279eb2;
+            color: #279eb2;
+        }
+        
+        .inside-page__btn--matric::before { 
+            background-color: #279eb2;
+        }
+        
+        .inside-page__btn--events { 
+            border-color: #fa7f67;
+            color: #fa7f67;
+        }
+        
+        .inside-page__btn--events::before { 
+            background-color: #fa7f67;
+        }
+        
+        .inside-page__btn--custom { 
+            border-color: #00b97d;
+            color: #00b97d;
+        }
+        
+        .inside-page__btn--custom::before { 
+            background-color: #00b97d;
+        }
+        
+        .inside-page__btn:hover { 
+            color: #fafbfa;
+        }
+        
+        .inside-page__btn:hover::before { 
+            transform: scaleY(1);
+        }
+        
+        /* Fix for card size - prevent expansion on hover */
+        .card:hover {
+            box-shadow: -.1rem 1.7rem 6.6rem -3.2rem rgba(0,0,0,0.75);
+            /* Remove width expansion */
+        }
+        
+        .card:hover .flip-card__container {
+            transform: rotateY(-180deg);
+        }
+        
+        .card:hover .inside-page {
+            box-shadow: inset 1rem 0px 5rem -2.5rem rgba(0,0,0,0.1);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .footer-section h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #ff8c00;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .footer-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #ccc;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .contact-info {
+            margin-bottom: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-item i {
+            width: 30px;
+            font-size: 18px;
+            color: #ff8c00;
+        }
+        
+        .contact-item a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-item a:hover {
+            color: #ff8c00;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #ff8c00;
+            color: #000;
+            transform: translateY(-3px);
+        }
+        
+        .map-container {
+            height: 250px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 1000px) {
+            .main-content {
+                gap: 40px;
+            }
+            .photo-frame {
+                width: 300px;
+                height: 340px;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+            .carousel-section {
+                min-height: 1000px;
+                margin: 120px 0;
+                padding: 120px 0;
+            }
+            .card-area {
+                gap: 15px;
+            }
+            .card-section {
+                width: 160px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 850px) {
+            .intro h1 {
+                font-size: 42px;
+            }
+            .intro h2 {
+                font-size: 40px;
+            }
+            .neon-line {
+                font-size: 24px;
+            }
+            .photo-frame {
+                width: 280px;
+                height: 320px;
+            }
+            .carousel-section {
+                min-height: 900px;
+                margin: 100px 0;
+                padding: 100px 0;
+            }
+            .card-area {
+                gap: 15px;
+            }
+            .card-section {
+                width: 160px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 30px;
+            }
+            .intro {
+                flex: 1;
+            }
+            .photo-frame {
+                width: 250px;
+                height: 290px;
+            }
+            .nav {
+                gap: 20px;
+            }
+            .nav a {
+                font-size: 16px;
+            }
+            .carousel-section {
+                min-height: 800px;
+                margin: 80px 0;
+                padding: 80px 0;
+            }
+            .card-area {
+                gap: 15px;
+            }
+            .card-section {
+                width: 160px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .main-content {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .intro {
+                text-align: left;
+                flex: 1;
+            }
+            .neon-container {
+                text-align: left;
+            }
+            .intro h1 {
+                font-size: 32px;
+            }
+            .intro h2 {
+                font-size: 30px;
+            }
+            .neon-line {
+                font-size: 18px;
+            }
+            .photo-frame {
+                width: 200px;
+                height: 240px;
+            }
+            .carousel-section {
+                min-height: 700px;
+                margin: 60px 0;
+                padding: 60px 0;
+            }
+            .card-area {
+                gap: 10px;
+            }
+            .card-section {
+                width: 160px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 550px) {
+            .main-content {
+                gap: 15px;
+            }
+            .intro h1 {
+                font-size: 28px;
+            }
+            .intro h2 {
+                font-size: 26px;
+            }
+            .neon-line {
+                font-size: 16px;
+            }
+            .photo-frame {
+                width: 180px;
+                height: 220px;
+            }
+            .carousel-section {
+                min-height: 600px;
+                margin: 50px 0;
+                padding: 50px 0;
+            }
+            .card-area {
+                gap: 10px;
+            }
+            .card-section {
+                width: 160px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card-area {
+                gap: 10px;
+            }
+            .card-section {
+                width: calc(50% - 15px);
+                height: 180px;
+            }
+            .card-front__icon {
+                font-size: 1.5rem;
+            }
+            .card-front__heading {
+                font-size: 1rem;
+            }
+            .inside-page__heading {
+                font-size: 0.9rem;
+            }
+            .inside-page__text {
+                font-size: 0.65rem;
+            }
+            .inside-page__btn {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <!-- Replace with image for GitHub repo -->
+            <div class="logo">
+                <!-- <img src="assets/DoofyShots.jpg" alt="Doofy Shots" class="logo-img"> -->
+                DS.
+            </div>
+            <nav class="nav">
+                <a href="#" class="active">HOME</a>
+                <a href="#">WORK</a>
+                <a href="#">ABOUT</a>
+                <a href="#contact">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="intro">
+                <h1>Doofy</h1>
+                <h2>Shots</h2>
+                <div class="neon-container">
+                    <div class="neon-line line1">Photographer</div>
+                    <div class="neon-line line2">Videographer</div>
+                    <div class="neon-line line3">And more...</div>
+                </div>
+            </div>
+            <div class="photo-frame">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Doofy Shots Portrait" />
+                <div class="frame-border"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Book Now Button -->
+    <div class="book-now-section">
+        <a href="https://wa.me/27692167121" class="book-now-btn" target="_blank">Book Now</a>
+    </div>
+    
+    <!-- 3D Carousel Section -->
+    <section class="carousel-section">
+        <div id="drag-container">
+            <div id="spin-container">
+                <!-- Images -->
+                <img src="https://images.pexels.com/photos/206395/pexels-photo-206395.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 1">
+                <img src="https://images.pexels.com/photos/1391498/pexels-photo-1391498.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 2">
+                <img src="https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 3">
+                <img src="https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 4">
+                <img src="https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 5">
+                <img src="https://images.pexels.com/photos/1462636/pexels-photo-1462636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 6">
+                
+                <!-- Example image with link -->
+                <a target="_blank" href="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg">
+                    <img src="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image 7">
+                </a>
+
+                <!-- Example add video  -->
+                <video controls autoplay loop muted>
+                    <source src="https://player.vimeo.com/external/322244668.sd.mp4?s=338c48ac2dfcb1d4c0689968b5baf94eee6ca0c1&profile_id=165&oauth2_token_id=57447761" type="video/mp4">
+                </video>
+
+                <!-- Text at center of ground -->
+                <p>Doofy Shots</p>
+            </div>
+            <div id="ground"></div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <div class="container">
+        <section class="about-section">
+            <h3>About Doofy Shots</h3>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Based around Pretoria, Gauteng, I am passionate about capturing the beauty of every moment through my lens. Whether it's the joy of a wedding day, the energy of a fashion show or the intimacy of a portrait, I craft images that tell your unique story.</p>
+                    <p>My approach combines technical expertise with artistic vision, ensuring that each photograph or video is not just a picture, but a memory frozen in time forever.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Photography Services Cards -->
+    <section class="services-section">
+        <h2 class="services-title">Photography Services</h2>
+        <div class="card-area">
+            <!-- Card: Portrait -->
+            <section class="card-section">
+                <div class="card">
+                    <div class="flip-card">
+                        <div class="flip-card__container">
+                            <div class="card-front">
+                                <div class="card-front__tp card-front__tp--portrait">
+                                    <i class="ph-duotone ph-user-square card-front__icon"></i>
+                                    <h2 class="card-front__heading">
+                                        Portrait
+                                    </h2>
+                                </div>
+                                <div class="card-front__bt">
+                                    <p class="card-front__text-view card-front__text-view--portrait">
+                                        Open
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <video class="video__container" autoplay muted loop>
+                                    <source class="video__media" src="https://player.vimeo.com/external/370331493.sd.mp4?s=e90dcaba73c19e0e36f03406b47bbd6992dd6c1c&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inside-page">
+                        <div class="inside-page__container">
+                            <h3 class="inside-page__heading inside-page__heading--portrait">
+                                Professional Portraits
+                            </h3>
+                            <p class="inside-page__text">
+                                Capture your personality with professional portrait sessions.
+                            </p>
+                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking a Portrait session." class="inside-page__btn inside-page__btn--portrait" target="_blank">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card: Matric Dance -->
+            <section class="card-section">
+                <div class="card">
+                    <div class="flip-card">
+                        <div class="flip-card__container">
+                            <div class="card-front">
+                                <div class="card-front__tp card-front__tp--matric">
+                                    <i class="ph-duotone ph-graduation-cap card-front__icon"></i>
+                                    <h2 class="card-front__heading">
+                                        Matric Dance
+                                    </h2>
+                                </div>
+                                <div class="card-front__bt">
+                                    <p class="card-front__text-view card-front__text-view--matric">
+                                        Open
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <video class="video__container" autoplay muted loop>
+                                    <source class="video__media" src="https://player.vimeo.com/external/195913085.sd.mp4?s=7c12f7a83de62a8900fd2ae049297070b9bc8a54&profile_id=164&oauth2_token_id=574477611" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inside-page">
+                        <div class="inside-page__container">
+                            <h3 class="inside-page__heading inside-page__heading--matric">
+                                Unforgettable Memories
+                            </h3>
+                            <p class="inside-page__text">
+                                Make your matric dance unforgettable with professional photography.
+                            </p>
+                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking a Matric Dance session." class="inside-page__btn inside-page__btn--matric" target="_blank">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card: Events -->
+            <section class="card-section">
+                <div class="card">
+                    <div class="flip-card">
+                        <div class="flip-card__container">
+                            <div class="card-front">
+                                <div class="card-front__tp card-front__tp--events">
+                                    <i class="ph-duotone ph-disco-ball card-front__icon"></i>
+                                    <h2 class="card-front__heading">
+                                        Events
+                                    </h2>
+                                </div>
+                                <div class="card-front__bt">
+                                    <p class="card-front__text-view card-front__text-view--events">
+                                        Open
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <video class="video__container" autoplay muted loop>
+                                    <source class="video__media" src="https://player.vimeo.com/external/332588783.sd.mp4?s=cab1817146dd72daa6346a1583cc1ec4d9e677c7&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inside-page">
+                        <div class="inside-page__container">
+                            <h3 class="inside-page__heading inside-page__heading--events">
+                                Event Photography
+                            </h3>
+                            <p class="inside-page__text">
+                                Capture the energy and emotion of your special occasions.
+                            </p>
+                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking an Events session." class="inside-page__btn inside-page__btn--events" target="_blank">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card: Custom -->
+            <section class="card-section">
+                <div class="card">
+                    <div class="flip-card">
+                        <div class="flip-card__container">
+                            <div class="card-front">
+                                <div class="card-front__tp card-front__tp--custom">
+                                    <i class="ph-duotone ph-user-circle-gear card-front__icon"></i>
+                                    <h2 class="card-front__heading">
+                                        Custom
+                                    </h2>
+                                </div>
+                                <div class="card-front__bt">
+                                    <p class="card-front__text-view card-front__text-view--custom">
+                                        Open
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <video class="video__container" autoplay muted loop>
+                                    <source class="video__media" src="https://player.vimeo.com/external/180185916.sd.mp4?s=c893e4770f87b00e0d6b5a1de138b01b02aaa085&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inside-page">
+                        <div class="inside-page__container">
+                            <h3 class="inside-page__heading inside-page__heading--custom">
+                                Tailored Photography
+                            </h3>
+                            <p class="inside-page__text">
+                                Create a custom package that fits your vision.
+                            </p>
+                            <a href="https://wa.me/27692167121?text=Hello! I'm interested in booking a Custom session." class="inside-page__btn inside-page__btn--custom" target="_blank">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:lefadiale@icloud.com">lefadiale@icloud.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+27692167121">+27 69 216 7121</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>6 Jasmine Avenue, Cullinan, Gauteng, 1000, South Africa</span>
+                    </div>
+                </div>
+                <h3>Follow Me</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/doofy_shots" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/lefa.diale.16/" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/27692167121" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Location</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.536845288153!2d28.51622931501912!3d-25.67093168373704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ebfce6a5c7b5b5f%3A0x7a5a7a5a5a5a5a5a!2s6%20Jasmine%20Ave%2C%20Cullinan%2C%201000!5e0!3m2!1sen!2sza!4v1620000000000!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Doofy Shots. All rights reserved.
+        </div>
+    </footer>
+    
+    <script>
+        // JavaScript for nav highlighting
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.nav a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // If it's the contact link, scroll to footer
+                if(this.getAttribute('href') === '#contact') {
+                    e.preventDefault();
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Smooth scroll for contact link
+        document.querySelector('a[href="#contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // 3D Carousel Script - Exact copy from working example
+        // Global variables
+        var radius = 240; // how big of the radius
+        var autoRotate = true; // auto rotate or not
+        var rotateSpeed = -60; // unit: seconds/360 degrees
+        var imgWidth = 120; // width of images (unit: px)
+        var imgHeight = 170; // height of images (unit: px)
+
+        // Animation start after 1000 milliseconds
+        setTimeout(init, 1000);
+
+        var odrag = document.getElementById('drag-container');
+        var ospin = document.getElementById('spin-container');
+        var aImg = ospin.getElementsByTagName('img');
+        var aVid = ospin.getElementsByTagName('video');
+        var aEle = [...aImg, ...aVid]; // combine 2 arrays
+
+        // Size of images
+        ospin.style.width = imgWidth + "px";
+        ospin.style.height = imgHeight + "px";
+
+        // Size of ground - depend on radius
+        var ground = document.getElementById('ground');
+        ground.style.width = radius * 3 + "px";
+        ground.style.height = radius * 3 + "px";
+
+        function init(delayTime) {
+            for (var i = 0; i < aEle.length; i++) {
+                aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";
+                aEle[i].style.transition = "transform 1s";
+                aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";
+            }
+        }
+
+        function applyTranform(obj) {
+            // Constrain the angle of camera (between 0 and 180)
+            if(tY > 180) tY = 180;
+            if(tY < 0) tY = 0;
+
+            // Apply the angle
+            obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";
+        }
+
+        function playSpin(yes) {
+            ospin.style.animationPlayState = (yes?'running':'paused');
+        }
+
+        var sX, sY, nX, nY, desX = 0,
+            desY = 0,
+            tX = 0,
+            tY = 10;
+
+        // auto spin
+        if (autoRotate) {
+            var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
+            ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
+        }
+
+        // setup events
+        document.onpointerdown = function (e) {
+            clearInterval(odrag.timer);
+            e = e || window.event;
+            var sX = e.clientX,
+                sY = e.clientY;
+
+            this.onpointermove = function (e) {
+                e = e || window.event;
+                var nX = e.clientX,
+                    nY = e.clientY;
+                desX = nX - sX;
+                desY = nY - sY;
+                tX += desX * 0.1;
+                tY += desY * 0.1;
+                applyTranform(odrag);
+                sX = nX;
+                sY = nY;
+            };
+
+            this.onpointerup = function (e) {
+                odrag.timer = setInterval(function () {
+                    desX *= 0.95;
+                    desY *= 0.95;
+                    tX += desX * 0.1;
+                    tY += desY * 0.1;
+                    applyTranform(odrag);
+                    playSpin(false);
+                    if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {
+                        clearInterval(odrag.timer);
+                        playSpin(true);
+                    }
+                }, 17);
+                this.onpointermove = this.onpointerup = null;
+            };
+
+            return false;
+        };
+
+        document.onmousewheel = function(e) {
+            e = e || window.event;
+            var d = e.wheelDelta / 20 || -e.detail;
+            radius += d;
+            init(1);
+        };
+    </script>
+</body>
+</html>

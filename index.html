@@ -261,16 +261,16 @@
                 <div class="form-section">
                     <h3>Client Details</h3>
                     <div class="form-group">
-                        <input type="text" id="client-name" name="client-name" placeholder="Full Name" required>
+                        <input type="text" id="client-name" name="client-name" placeholder="Full Name *" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="client-email" name="client-email" placeholder="Email Address" required>
+                        <input type="email" id="client-email" name="client-email" placeholder="Email Address *" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" id="client-phone" name="client-phone" placeholder="Phone Number" required>
+                        <input type="tel" id="client-phone" name="client-phone" placeholder="Phone Number *" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="client-location" name="client-location" placeholder="Location" required>
+                        <input type="text" id="client-location" name="client-location" placeholder="Location *" required>
                     </div>
                 </div>
                 
@@ -278,7 +278,7 @@
                     <h3>Session Information</h3>
                     <div class="form-group">
                         <select id="session-type" name="session-type" required>
-                            <option value="">Select Session Type</option>
+                            <option value="">Select Session Type *</option>
                             <option value="Portrait">Portrait</option>
                             <option value="Matric Dance">Matric Dance</option>
                             <option value="Events">Events</option>
@@ -295,16 +295,23 @@
                     </div>
                     
                     <div class="form-group" id="single-date-group">
-                        <input type="date" id="session-date" name="session-date" min="">
+                        <label for="session-date">Session Date *</label>
+                        <input type="date" id="session-date" name="session-date" min="" required>
                     </div>
                     
                     <div class="form-group hidden" id="period-date-group">
-                        <input type="date" id="start-date" name="start-date" min="" placeholder="Start Date">
-                        <input type="date" id="end-date" name="end-date" min="" placeholder="End Date">
+                        <label for="start-date">Start Date *</label>
+                        <input type="date" id="start-date" name="start-date" min="" required>
+                        <label for="end-date">End Date *</label>
+                        <input type="date" id="end-date" name="end-date" min="" required>
                     </div>
                     
                     <div class="form-group">
-                        <input type="time" id="start-time" name="start-time" min="">
+                        <label for="start-time">Preferred Start Time *</label>
+                        <div class="time-input-container">
+                            <input type="time" id="start-time" name="start-time" required>
+                            <span class="time-hint">(e.g., 09:00 AM)</span>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -314,6 +321,10 @@
                     <div class="form-group">
                         <textarea id="comments" name="comments" placeholder="Comments/Special Wishes" rows="4"></textarea>
                     </div>
+                </div>
+                
+                <div class="form-required-note">
+                    * Required fields
                 </div>
                 
                 <button type="submit" class="submit-btn">Send Booking Request</button>
@@ -367,4 +378,4 @@
     
     <script src="js/script.js"></script>
 </body>
-</html>
+                                        </html>

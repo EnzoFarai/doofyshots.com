@@ -37,16 +37,29 @@ const startTimeInput = document.getElementById('start-time');
 function setMinDates() {
     const now = new Date();
     const today = now.toISOString().split('T')[0];
-    const currentTime = now.toTimeString().slice(0,5);
     
+    // Set minimum dates to today
     sessionDateInput.min = today;
     startDateInput.min = today;
     endDateInput.min = today;
-    startTimeInput.min = currentTime;
+    
+    // For time, we only validate if the selected date is today
+    // Otherwise, any time is valid for future dates
+    const selectedDate = sessionDateInput.value || startDateInput.value;
+    if (selectedDate === today) {
+        const currentTime = now.toTimeString().slice(0,5);
+        startTimeInput.min = currentTime;
+    } else {
+        startTimeInput.removeAttribute('min');
+    }
 }
 
 // Initialize date restrictions
 setMinDates();
+
+// Update time validation when dates change
+sessionDateInput.addEventListener('change', setMinDates);
+startDateInput.addEventListener('change', setMinDates);
 
 // Modal open/close functions
 function openModal(sessionType = '') {
@@ -55,6 +68,9 @@ function openModal(sessionType = '') {
     }
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    
+    // Reset and set min dates when opening modal
+    setMinDates();
 }
 
 function closeModalFunc() {
@@ -91,15 +107,39 @@ dateTypeSelect.addEventListener('change', function() {
     if (this.value === 'single') {
         singleDateGroup.classList.remove('hidden');
         periodDateGroup.classList.add('hidden');
+        
+        // Make single date required, period dates not required
+        sessionDateInput.required = true;
+        startDateInput.required = false;
+        endDateInput.required = false;
     } else {
         singleDateGroup.classList.add('hidden');
         periodDateGroup.classList.remove('hidden');
+        
+        // Make period dates required, single date not required
+        sessionDateInput.required = false;
+        startDateInput.required = true;
+        endDateInput.required = true;
     }
 });
+
+// Initialize date type
+dateTypeSelect.dispatchEvent(new Event('change'));
 
 // Form submission
 bookingForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    // Validate end date is after start date for period bookings
+    if (dateTypeSelect.value === 'period') {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+        
+        if (endDate <= startDate) {
+            alert('End date must be after start date');
+            return;
+        }
+    }
     
     // Get form values
     const formData = {

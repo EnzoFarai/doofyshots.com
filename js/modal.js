@@ -22,6 +22,8 @@ class BookingModal {
             this.setupModalElements();
             this.setupEventListeners();
             this.setMinDates();
+            // Ensure both date groups are hidden on startup
+            this.hideAllDateGroups();
         });
     }
     
@@ -118,6 +120,16 @@ class BookingModal {
         });
     }
     
+    // Hide all date groups
+    hideAllDateGroups() {
+        if (this.singleDateGroup) {
+            this.singleDateGroup.classList.add('hidden');
+        }
+        if (this.periodDateGroup) {
+            this.periodDateGroup.classList.add('hidden');
+        }
+    }
+    
     // Set minimum dates and times
     setMinDates() {
         const now = new Date();
@@ -154,8 +166,7 @@ class BookingModal {
         const dateType = this.dateTypeSelect.value;
         
         // Hide both groups first
-        this.singleDateGroup.classList.add('hidden');
-        this.periodDateGroup.classList.add('hidden');
+        this.hideAllDateGroups();
         
         // Clear any existing errors
         this.hideDateRangeError();
@@ -193,7 +204,7 @@ class BookingModal {
     
     // Validate date range for period bookings
     validateDateRange() {
-        if (this.dateTypeSelect.value !== 'period') return;
+        if (this.dateTypeSelect.value !== 'period') return true;
         
         const startDate = this.startDateInput.value;
         const endDate = this.endDateInput.value;
@@ -276,12 +287,7 @@ class BookingModal {
         }
         
         // Hide all date groups
-        if (this.singleDateGroup) {
-            this.singleDateGroup.classList.add('hidden');
-        }
-        if (this.periodDateGroup) {
-            this.periodDateGroup.classList.add('hidden');
-        }
+        this.hideAllDateGroups();
         
         // Clear any errors
         this.hideDateRangeError();

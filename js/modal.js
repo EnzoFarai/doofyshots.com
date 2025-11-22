@@ -11,6 +11,7 @@ class BookingModal {
         this.startDateInput = null;
         this.endDateInput = null;
         this.startTimeInput = null;
+        this.dateRangeError = null;
         
         this.init();
     }
@@ -45,6 +46,7 @@ class BookingModal {
         this.startDateInput = document.getElementById('start-date');
         this.endDateInput = document.getElementById('end-date');
         this.startTimeInput = document.getElementById('start-time');
+        this.dateRangeError = document.getElementById('date-range-error');
     }
     
     setupEventListeners() {
@@ -98,6 +100,13 @@ class BookingModal {
         if (this.startDateInput) {
             this.startDateInput.addEventListener('change', () => {
                 this.setMinDates();
+                this.validateDateRange();
+            });
+        }
+        if (this.endDateInput) {
+            this.endDateInput.addEventListener('change', () => {
+                this.validateDateRange();
+                this.autoAdjustDateType();
             });
         }
         
@@ -107,11 +116,6 @@ class BookingModal {
                 this.closeModalFunc();
             }
         });
-        
-        // Initialize date type
-        if (this.dateTypeSelect) {
-            this.dateTypeSelect.dispatchEvent(new Event('change'));
-        }
     }
     
     // Set minimum dates and times
@@ -126,7 +130,7 @@ class BookingModal {
         
         // For time, we only validate if the selected date is today
         // Otherwise, any time is valid for future dates
-        const selectedDate = this.sessionDateInput?.value || this.startDateInput?.value;
+        const selectedDate = this.getSelectedDate();
         if (selectedDate === today && this.startTimeInput) {
             const currentTime = now.toTimeString().slice(0,5);
             this.startTimeInput.min = currentTime;
@@ -135,24 +139,113 @@ class BookingModal {
         }
     }
     
+    // Get the currently selected date based on date type
+    getSelectedDate() {
+        if (this.dateTypeSelect.value === 'single' && this.sessionDateInput) {
+            return this.sessionDateInput.value;
+        } else if (this.dateTypeSelect.value === 'period' && this.startDateInput) {
+            return this.startDateInput.value;
+        }
+        return '';
+    }
+    
     // Handle date type change
     handleDateTypeChange() {
-        if (this.dateTypeSelect.value === 'single') {
+        const dateType = this.dateTypeSelect.value;
+        
+        // Hide both groups first
+        this.singleDateGroup.classList.add('hidden');
+        this.periodDateGroup.classList.add('hidden');
+        
+        // Clear any existing errors
+        this.hideDateRangeError();
+        
+        if (dateType === 'single') {
             this.singleDateGroup.classList.remove('hidden');
-            this.periodDateGroup.classList.add('hidden');
             
             // Make single date required, period dates not required
             this.sessionDateInput.required = true;
             this.startDateInput.required = false;
             this.endDateInput.required = false;
-        } else {
-            this.singleDateGroup.classList.add('hidden');
+            
+            // Clear period dates
+            this.startDateInput.value = '';
+            this.endDateInput.value = '';
+            
+        } else if (dateType === 'period') {
             this.periodDateGroup.classList.remove('hidden');
             
             // Make period dates required, single date not required
             this.sessionDateInput.required = false;
             this.startDateInput.required = true;
             this.endDateInput.required = true;
+            
+            // Clear single date
+            this.sessionDateInput.value = '';
+            
+            // Validate date range if both dates are set
+            this.validateDateRange();
+        }
+        
+        // Update min dates for the newly selected date type
+        this.setMinDates();
+    }
+    
+    // Validate date range for period bookings
+    validateDateRange() {
+        if (this.dateTypeSelect.value !== 'period') return;
+        
+        const startDate = this.startDateInput.value;
+        const endDate = this.endDateInput.value;
+        
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            
+            if (end < start) {
+                this.showDateRangeError('End date must be after start date');
+                return false;
+            } else {
+                this.hideDateRangeError();
+                return true;
+            }
+        }
+        
+        this.hideDateRangeError();
+        return true;
+    }
+    
+    // Auto-adjust date type if start and end dates are the same
+    autoAdjustDateType() {
+        if (this.dateTypeSelect.value !== 'period') return;
+        
+        const startDate = this.startDateInput.value;
+        const endDate = this.endDateInput.value;
+        
+        if (startDate && endDate && startDate === endDate) {
+            // Same date selected - auto switch to single day
+            this.dateTypeSelect.value = 'single';
+            this.sessionDateInput.value = startDate;
+            this.startDateInput.value = '';
+            this.endDateInput.value = '';
+            this.handleDateTypeChange();
+        }
+    }
+    
+    // Show date range error
+    showDateRangeError(message) {
+        if (this.dateRangeError) {
+            this.dateRangeError.textContent = message;
+            this.dateRangeError.classList.remove('hidden');
+            this.dateRangeError.classList.add('show');
+        }
+    }
+    
+    // Hide date range error
+    hideDateRangeError() {
+        if (this.dateRangeError) {
+            this.dateRangeError.classList.add('hidden');
+            this.dateRangeError.classList.remove('show');
         }
     }
     
@@ -164,8 +257,39 @@ class BookingModal {
         if (this.modal) {
             this.modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Reset form and set defaults
+            this.resetForm();
             this.setMinDates();
         }
+    }
+    
+    // Reset form to initial state
+    resetForm() {
+        if (this.bookingForm) {
+            this.bookingForm.reset();
+        }
+        
+        // Reset date type to unselected
+        if (this.dateTypeSelect) {
+            this.dateTypeSelect.value = '';
+        }
+        
+        // Hide all date groups
+        if (this.singleDateGroup) {
+            this.singleDateGroup.classList.add('hidden');
+        }
+        if (this.periodDateGroup) {
+            this.periodDateGroup.classList.add('hidden');
+        }
+        
+        // Clear any errors
+        this.hideDateRangeError();
+        
+        // Reset required fields
+        if (this.sessionDateInput) this.sessionDateInput.required = false;
+        if (this.startDateInput) this.startDateInput.required = false;
+        if (this.endDateInput) this.endDateInput.required = false;
     }
     
     // Close modal
@@ -173,10 +297,7 @@ class BookingModal {
         if (this.modal) {
             this.modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-            if (this.bookingForm) {
-                this.bookingForm.reset();
-            }
-            this.setMinDates();
+            this.resetForm();
         }
     }
     
@@ -184,13 +305,15 @@ class BookingModal {
     handleFormSubmit(e) {
         e.preventDefault();
         
-        // Validate end date is after start date for period bookings
+        // Validate date type is selected
+        if (!this.dateTypeSelect.value) {
+            alert('Please select a date type');
+            return;
+        }
+        
+        // Validate date range for period bookings
         if (this.dateTypeSelect.value === 'period') {
-            const startDate = new Date(this.startDateInput.value);
-            const endDate = new Date(this.endDateInput.value);
-            
-            if (endDate <= startDate) {
-                alert('End date must be after start date');
+            if (!this.validateDateRange()) {
                 return;
             }
         }
@@ -203,7 +326,7 @@ class BookingModal {
             location: document.getElementById('client-location').value,
             sessionType: this.sessionTypeSelect.value,
             dateType: this.dateTypeSelect.value,
-            date: this.dateTypeSelect.value === 'single' ? this.sessionDateInput.value : `${this.startDateInput.value} to ${this.endDateInput.value}`,
+            date: this.getFormattedDate(),
             time: this.startTimeInput.value,
             people: document.getElementById('number-people').value,
             comments: document.getElementById('comments').value
@@ -238,6 +361,29 @@ Looking forward to hearing from you!`;
         
         // Close modal
         this.closeModalFunc();
+    }
+    
+    // Get formatted date based on date type
+    getFormattedDate() {
+        if (this.dateTypeSelect.value === 'single') {
+            return this.formatDate(this.sessionDateInput.value);
+        } else if (this.dateTypeSelect.value === 'period') {
+            const startDate = this.formatDate(this.startDateInput.value);
+            const endDate = this.formatDate(this.endDateInput.value);
+            return `${startDate} to ${endDate}`;
+        }
+        return '';
+    }
+    
+    // Format date from YYYY-MM-DD to readable format
+    formatDate(dateString) {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
     }
 }
 

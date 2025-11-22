@@ -1,0 +1,79 @@
+<!-- Booking Modal -->
+<div id="booking-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Book Your Session</h2>
+        <form id="booking-form">
+            <div class="form-section">
+                <h3>Client Details</h3>
+                <div class="form-group">
+                    <input type="text" id="client-name" name="client-name" placeholder="Full Name *" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="client-email" name="client-email" placeholder="Email Address *" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="client-phone" name="client-phone" placeholder="Phone Number *" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="client-location" name="client-location" placeholder="Location *" required>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Session Information</h3>
+                <div class="form-group">
+                    <select id="session-type" name="session-type" required>
+                        <option value="">Select Session Type *</option>
+                        <option value="Portrait">Portrait</option>
+                        <option value="Matric Dance">Matric Dance</option>
+                        <option value="Events">Events</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date-type">Date Type:</label>
+                    <select id="date-type" name="date-type" required>
+                        <option value="single">Single Day</option>
+                        <option value="period">Period (Multiple Days)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="single-date-group">
+                    <label for="session-date">Session Date *</label>
+                    <input type="date" id="session-date" name="session-date" min="" required>
+                </div>
+                
+                <div class="form-group hidden" id="period-date-group">
+                    <label for="start-date">Start Date *</label>
+                    <input type="date" id="start-date" name="start-date" min="" required>
+                    <label for="end-date">End Date *</label>
+                    <input type="date" id="end-date" name="end-date" min="" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="start-time">Preferred Start Time *</label>
+                    <div class="time-input-container">
+                        <input type="time" id="start-time" name="start-time" required>
+                        <span class="time-hint">(e.g., 09:00 AM)</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <input type="number" id="number-people" name="number-people" placeholder="Number of People *" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="comments" name="comments" placeholder="Comments/Special Wishes" rows="4"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-required-note">
+                * Required fields
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Booking Request</button>
+        </form>
+    </div>
+</div>

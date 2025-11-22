@@ -18,6 +18,134 @@ document.querySelector('a[href="#contact"]').addEventListener('click', function(
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 });
 
+// Modal functionality
+const modal = document.getElementById('booking-modal');
+const mainBookNowBtn = document.getElementById('main-book-now');
+const modalBookNowBtns = document.querySelectorAll('.book-now-modal-btn');
+const closeModal = document.querySelector('.close-modal');
+const bookingForm = document.getElementById('booking-form');
+const sessionTypeSelect = document.getElementById('session-type');
+const dateTypeSelect = document.getElementById('date-type');
+const singleDateGroup = document.getElementById('single-date-group');
+const periodDateGroup = document.getElementById('period-date-group');
+const sessionDateInput = document.getElementById('session-date');
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+const startTimeInput = document.getElementById('start-time');
+
+// Set minimum dates and times
+function setMinDates() {
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+    const currentTime = now.toTimeString().slice(0,5);
+    
+    sessionDateInput.min = today;
+    startDateInput.min = today;
+    endDateInput.min = today;
+    startTimeInput.min = currentTime;
+}
+
+// Initialize date restrictions
+setMinDates();
+
+// Modal open/close functions
+function openModal(sessionType = '') {
+    if (sessionType) {
+        sessionTypeSelect.value = sessionType;
+    }
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModalFunc() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    bookingForm.reset();
+    setMinDates();
+}
+
+// Event listeners for modal
+mainBookNowBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal();
+});
+
+modalBookNowBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const sessionType = this.getAttribute('data-session');
+        openModal(sessionType);
+    });
+});
+
+closeModal.addEventListener('click', closeModalFunc);
+
+window.addEventListener('click', function(e) {
+    if (e.target === modal) {
+        closeModalFunc();
+    }
+});
+
+// Date type toggle
+dateTypeSelect.addEventListener('change', function() {
+    if (this.value === 'single') {
+        singleDateGroup.classList.remove('hidden');
+        periodDateGroup.classList.add('hidden');
+    } else {
+        singleDateGroup.classList.add('hidden');
+        periodDateGroup.classList.remove('hidden');
+    }
+});
+
+// Form submission
+bookingForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const formData = {
+        name: document.getElementById('client-name').value,
+        email: document.getElementById('client-email').value,
+        phone: document.getElementById('client-phone').value,
+        location: document.getElementById('client-location').value,
+        sessionType: sessionTypeSelect.value,
+        dateType: dateTypeSelect.value,
+        date: dateTypeSelect.value === 'single' ? sessionDateInput.value : `${startDateInput.value} to ${endDateInput.value}`,
+        time: startTimeInput.value,
+        people: document.getElementById('number-people').value,
+        comments: document.getElementById('comments').value
+    };
+    
+    // Format WhatsApp message
+    const message = `Hello, Doofy Shots! I would like to book a session. Here are my details:
+
+*CLIENT DETAILS*
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone}
+*Location:* ${formData.location}
+
+*SESSION INFORMATION*
+*Type of Session:* ${formData.sessionType}
+*Date:* ${formData.date}
+*Starting Time:* ${formData.time}
+*Number of People:* ${formData.people || 'Not specified'}
+*Comments/Special Wishes:* ${formData.comments || 'None'}
+
+Looking forward to hearing from you!`;
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/27692167121?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Close modal
+    closeModalFunc();
+});
+
 // 3D Carousel Script - Exact copy from working example
 // Global variables
 var radius = 240; // how big of the radius
